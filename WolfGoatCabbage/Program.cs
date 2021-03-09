@@ -98,25 +98,28 @@ namespace WolfGoatCabbage
                             Console.Write("select item: ");
                             success = int.TryParse(Console.ReadLine(), out itemIndex) && itemIndex >= 0 && itemIndex < sides[sideIndex].Count;
 
-                            var temp = new List<Entities>(sides[sideIndex]);
-                            temp.RemoveAt(itemIndex);
-
-                            var canMoveFrom =
-                                (temp.Contains(Entities.Wolf) && temp.Contains(Entities.Goat)
-                                ||
-                                temp.Contains(Entities.Goat) && temp.Contains(Entities.Cabbage)) == false;
-
-                            if (canMoveFrom == false)
+                            if (success)
                             {
-                                Output("Can't move item from selected side. It's not safe.\r\n", MessageLevels.Error);
-                                Console.ReadKey();
-                                break;
-                            }
-                            else
-                            {
-                                boat = sides[sideIndex][itemIndex];
-                                sides[sideIndex].RemoveAt(itemIndex);
-                                Output("Moved", MessageLevels.Success);
+                                var temp = new List<Entities>(sides[sideIndex]);
+                                temp.RemoveAt(itemIndex);
+
+                                var canMoveFrom =
+                                    (temp.Contains(Entities.Wolf) && temp.Contains(Entities.Goat)
+                                    ||
+                                    temp.Contains(Entities.Goat) && temp.Contains(Entities.Cabbage)) == false;
+
+                                if (canMoveFrom == false)
+                                {
+                                    Output("Can't move item from selected side. It's not safe.\r\n", MessageLevels.Error);
+                                    Console.ReadKey();
+                                    break;
+                                }
+                                else
+                                {
+                                    boat = sides[sideIndex][itemIndex];
+                                    sides[sideIndex].RemoveAt(itemIndex);
+                                    Output("Moved", MessageLevels.Success);
+                                }
                             }
                         }
                         while (success == false);
