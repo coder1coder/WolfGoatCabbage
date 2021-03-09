@@ -109,16 +109,17 @@ namespace WolfGoatCabbage
                             if (canMoveFrom == false)
                             {
                                 Output("Can't move item from selected side. It's not safe.\r\n", MessageLevels.Error);
-                                success = false;
+                                Console.ReadKey();
+                                break;
+                            }
+                            else
+                            {
+                                boat = sides[sideIndex][itemIndex];
+                                sides[sideIndex].RemoveAt(itemIndex);
+                                Output("Moved", MessageLevels.Success);
                             }
                         }
                         while (success == false);
-
-                        boat = sides[sideIndex][itemIndex];
-                        sides[sideIndex].RemoveAt(itemIndex);
-
-                        Output("Moved", MessageLevels.Success);
-                        Console.ReadKey();
                         break;
 
                     //move item from boat
@@ -165,7 +166,8 @@ namespace WolfGoatCabbage
                             if (success && sides[sideIndex].Count == 0)
                             {
                                 Output("Can't move item from selected side. Side is empty.\r\n", MessageLevels.Error);
-                                success = false;
+                                Console.ReadKey();
+                                break;
                             }
                         }
                         while (success == false);
@@ -196,7 +198,8 @@ namespace WolfGoatCabbage
                                 if (canMoveFrom == false)
                                 {
                                     Output("Can't move item from selected side. It's not safe.\r\n", MessageLevels.Error);
-                                    success = false;
+                                    Console.ReadKey();
+                                    break;
                                 }
                                 else
                                 {
@@ -260,8 +263,8 @@ namespace WolfGoatCabbage
             {
                 Output("Can't move item to selected side. It's not safe.\r\n", MessageLevels.Error);
                 Console.ReadKey();
+                Console.ReadKey();
             }
-                
 
             return canMoveTo;
         }
