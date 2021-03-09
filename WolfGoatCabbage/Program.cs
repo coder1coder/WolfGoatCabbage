@@ -76,9 +76,9 @@ namespace WolfGoatCabbage
                         do
                         {
                             Console.Write("select side from: ");
-                            success = int.TryParse(Console.ReadLine(), out sideIndex);
+                            success = int.TryParse(Console.ReadLine(), out sideIndex) && sideIndex >= 0 && sideIndex < 2;
 
-                            if (sides[sideIndex].Count == 0)
+                            if (success && sides[sideIndex].Count == 0)
                             {
                                 Output("Can't move item from selected side. Side is empty.\r\n", MessageLevels.Error);
                                 success = false;
@@ -133,7 +133,7 @@ namespace WolfGoatCabbage
                         do
                         {
                             Console.Write("select side to: ");
-                            success = int.TryParse(Console.ReadLine(), out sideIndex);
+                            success = int.TryParse(Console.ReadLine(), out sideIndex) && sideIndex >= 0 && sideIndex < 2;
                         }
                         while (success == false);
 
@@ -160,9 +160,9 @@ namespace WolfGoatCabbage
                         do
                         {
                             Console.Write("select side: ");
-                            success = int.TryParse(Console.ReadLine(), out sideIndex);
+                            success = int.TryParse(Console.ReadLine(), out sideIndex) && sideIndex >=0 && sideIndex < 2;
 
-                            if (sides[sideIndex].Count == 0)
+                            if (success && sides[sideIndex].Count == 0)
                             {
                                 Output("Can't move item from selected side. Side is empty.\r\n", MessageLevels.Error);
                                 success = false;
