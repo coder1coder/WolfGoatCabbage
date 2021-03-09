@@ -38,25 +38,25 @@ namespace WolfGoatCabbage
                 Console.Clear();
 
                 PrintStringsWithIndexes(new string[] {
-                    "Left side: " + string.Join(", ", sides[0]),
-                    "Right side: " + string.Join(", ", sides[1])
+                    "На левом берегу: " + string.Join(", ", sides[0]),
+                    "На правом берегу: " + string.Join(", ", sides[1])
                 });
 
-                Console.WriteLine("Boat: " + boat);
+                Console.WriteLine("В лодке: " + boat);
                 Console.WriteLine();
 
-                Output("Actions", MessageLevels.Info);
+                Output("Возможные действия", MessageLevels.Info);
                 PrintStringsWithIndexes(new string[] {
-                    "Move item to boat",
-                    "Move item from boat",
-                    "Switch items"
+                    "Переместить объект с берега в лодку",
+                    "Переместить объект из лодки на берег",
+                    "Поменять объекты местами"
                 });
 
                 Console.WriteLine();
 
                 do
                 {
-                    Console.Write("action: ");
+                    Console.Write("Жду указаний кэп > ");
                     success = int.TryParse(Console.ReadLine(), out actionIndex);
                 }
                 while (success == false);
@@ -68,19 +68,19 @@ namespace WolfGoatCabbage
 
                         if (boat != Entities.Empty)
                         {
-                            Output("I can't move item to boat, boat is not empty", MessageLevels.Error);
+                            Output("В лодке нет места, лодка не резиновая", MessageLevels.Error);
                             Console.ReadKey();
                             break;
                         }
 
                         do
                         {
-                            Console.Write("select side from: ");
+                            Console.Write("выберите берег: ");
                             success = int.TryParse(Console.ReadLine(), out sideIndex) && sideIndex >= 0 && sideIndex < 2;
 
                             if (success && sides[sideIndex].Count == 0)
                             {
-                                Output("Can't move item from selected side. Side is empty.\r\n", MessageLevels.Error);
+                                Output("Нельзя переместить то, чего нет.\r\n", MessageLevels.Error);
                                 success = false;
                             }
                         }
@@ -95,7 +95,7 @@ namespace WolfGoatCabbage
 
                         do
                         {
-                            Console.Write("select item: ");
+                            Console.Write("Выберите объект > ");
                             success = int.TryParse(Console.ReadLine(), out itemIndex) && itemIndex >= 0 && itemIndex < sides[sideIndex].Count;
 
                             if (success)
@@ -110,7 +110,7 @@ namespace WolfGoatCabbage
 
                                 if (canMoveFrom == false)
                                 {
-                                    Output("Can't move item from selected side. It's not safe.\r\n", MessageLevels.Error);
+                                    Output("Нельзя переместить объект с берега, это не безопасно.\r\n", MessageLevels.Error);
                                     Console.ReadKey();
                                     break;
                                 }
@@ -129,14 +129,14 @@ namespace WolfGoatCabbage
                     case 1:
                         if (boat == Entities.Empty)
                         {
-                            Output("I can't move item from boat, boat is empty", MessageLevels.Error);
+                            Output("Ты кого перевозить собрался? в лодке пусто", MessageLevels.Error);
                             Console.ReadKey();
                             break;
                         }
 
                         do
                         {
-                            Console.Write("select side to: ");
+                            Console.Write("На какой берег выгружаем? > ");
                             success = int.TryParse(Console.ReadLine(), out sideIndex) && sideIndex >= 0 && sideIndex < 2;
                         }
                         while (success == false);
@@ -146,7 +146,7 @@ namespace WolfGoatCabbage
                             sides[sideIndex].Add(boat);
                             boat = Entities.Empty;
 
-                            Output("Moved", MessageLevels.Success);
+                            Output("Перемещение выполнено кэп", MessageLevels.Success);
                         }
 
                         break;
@@ -156,19 +156,19 @@ namespace WolfGoatCabbage
 
                         if (boat == Entities.Empty)
                         {
-                            Output("I can't move item from boat, boat is empty", MessageLevels.Error);
+                            Output("В лодке никого, или ты о себе?", MessageLevels.Error);
                             Console.ReadKey();
                             break;
                         }
 
                         do
                         {
-                            Console.Write("select side: ");
+                            Console.Write("На какой берег плывем капитан? > ");
                             success = int.TryParse(Console.ReadLine(), out sideIndex) && sideIndex >=0 && sideIndex < 2;
 
                             if (success && sides[sideIndex].Count == 0)
                             {
-                                Output("Can't move item from selected side. Side is empty.\r\n", MessageLevels.Error);
+                                Output("Два глаза, а ничего не видишь. Нет никого здесь.\r\n", MessageLevels.Error);
                                 Console.ReadKey();
                                 break;
                             }
@@ -184,7 +184,7 @@ namespace WolfGoatCabbage
 
                         do
                         {
-                            Console.Write("select item: ");
+                            Console.Write("Выберите объект > ");
 
                             success = int.TryParse(Console.ReadLine(), out itemIndex) && itemIndex >= 0 && itemIndex < sides[sideIndex].Count;
 
@@ -200,7 +200,7 @@ namespace WolfGoatCabbage
 
                                 if (canMoveFrom == false)
                                 {
-                                    Output("Can't move item from selected side. It's not safe.\r\n", MessageLevels.Error);
+                                    Output("И как ты его заберешь? А остальные?.\r\n", MessageLevels.Error);
                                     Console.ReadKey();
                                     break;
                                 }
@@ -221,7 +221,7 @@ namespace WolfGoatCabbage
             }
             while (sides[1].Count < 3);
 
-            Output("You win!", MessageLevels.Success);
+            Output("Сделаем вид, что ты сам до этого додумался.", MessageLevels.Success);
             Console.ReadKey();
         }
         private static void Output(string message, MessageLevels level)
@@ -264,7 +264,7 @@ namespace WolfGoatCabbage
 
             if (canMoveTo == false)
             {
-                Output("Can't move item to selected side. It's not safe.\r\n", MessageLevels.Error);
+                Output("Нельзя просто взять и переместить как ты хочешь. Думать надо.\r\n", MessageLevels.Error);
                 Console.ReadKey();
                 Console.ReadKey();
             }
