@@ -96,7 +96,7 @@ namespace WolfGoatCabbage
                         do
                         {
                             Console.Write("select item: ");
-                            success = int.TryParse(Console.ReadLine(), out itemIndex);
+                            success = int.TryParse(Console.ReadLine(), out itemIndex) && itemIndex >= 0 && itemIndex < sides[sideIndex].Count;
 
                             var temp = new List<Entities>(sides[sideIndex]);
                             temp.RemoveAt(itemIndex);
@@ -181,7 +181,7 @@ namespace WolfGoatCabbage
                         {
                             Console.Write("select item: ");
 
-                            success = int.TryParse(Console.ReadLine(), out itemIndex);
+                            success = int.TryParse(Console.ReadLine(), out itemIndex) && itemIndex >= 0 && itemIndex < sides[sideIndex].Count;
 
                             if (success)
                             {
